@@ -1,4 +1,4 @@
-name: Generate Neon Snake
+name: Generate Neon Cyan Snake
 
 on:
   schedule:
@@ -13,16 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Generate snake (Cyan theme)
+      - name: Generate snake (dark mode)
         uses: Platane/snk@v3
         with:
           github_user_name: Magnusbekhoj
-          outputs: |
-            dist/snake.svg?palette=github-dark
+          outputs: dist/snake.svg?palette=github-dark
 
-      - name: Push to output branch
+      - name: Replace default green with cyan theme
+        run: |
+          sed -i 's/#3fb950/#00F5FF/g' dist/snake.svg
+          sed -i 's/#26a641/#00c3ff/g' dist/snake.svg
+          sed -i 's/#39d353/#00e0ff/g' dist/snake.svg
+          sed -i 's/#9be9a8/#7df9ff/g' dist/snake.svg
+
+      - name: Push snake to output branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
