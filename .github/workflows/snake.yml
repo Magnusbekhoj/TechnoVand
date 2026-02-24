@@ -15,12 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Generate snake
+      - name: Generate snake (Cyan theme)
         uses: Platane/snk@v3
         with:
           github_user_name: Magnusbekhoj
           outputs: |
-            dist/github-contribution-grid-snake.svg?palette=github-dark&color_snake=#00F5FF&color_dots=#0d1117,#0d1117,#00c3ff,#00f5ff,#7df9ff
+            dist/snake.svg?palette=github-dark
 
       - name: Push to output branch
         uses: peaceiris/actions-gh-pages@v3
