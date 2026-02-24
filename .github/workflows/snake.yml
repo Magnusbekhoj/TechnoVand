@@ -25,9 +25,8 @@ jobs:
       - name: List files in dist directory
         run: ls -la dist
 
-      - name: Fix permissions
-        run: |
-          chmod -R 777 dist
+      - name: Ensure dist directory exists
+        run: mkdir -p dist
 
       - name: Replace default green with cyan theme
         run: |
