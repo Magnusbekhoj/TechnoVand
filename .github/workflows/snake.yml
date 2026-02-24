@@ -22,25 +22,22 @@ jobs:
           github_user_name: Magnusbekhoj
           outputs: dist/snake.svg?palette=github-dark
 
-      - name: Create temp directory
-        run: mkdir temp
+      - name: Create output directory for modified SVG
+        run: mkdir -p modified
 
-      - name: Copy snake.svg to temp directory
-        run: cp dist/snake.svg temp/snake.svg
+      - name: Copy snake.svg to modified directory
+        run: cp dist/snake.svg modified/snake.svg
 
       - name: Replace default green with cyan theme
         run: |
-          sed -i 's/#3fb950/#00F5FF/g' temp/snake.svg
-          sed -i 's/#26a641/#00c3ff/g' temp/snake.svg
-          sed -i 's/#39d353/#00e0ff/g' temp/snake.svg
-          sed -i 's/#9be9a8/#7df9ff/g' temp/snake.svg
+          sed -i 's/#3fb950/#00F5FF/g' modified/snake.svg
+          sed -i 's/#26a641/#00c3ff/g' modified/snake.svg
+          sed -i 's/#39d353/#00e0ff/g' modified/snake.svg
+          sed -i 's/#9be9a8/#7df9ff/g' modified/snake.svg
 
-      - name: Move modified snake.svg back to dist
-        run: mv temp/snake.svg dist/snake.svg
-
-      - name: Push snake to output branch
+      - name: Push modified snake to output branch
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: modified
           publish_branch: output
