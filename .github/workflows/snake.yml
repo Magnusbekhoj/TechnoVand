@@ -22,6 +22,10 @@ jobs:
           github_user_name: Magnusbekhoj
           outputs: dist/snake.svg?palette=github-dark
 
+      - name: Fix permissions
+        run: |
+          chmod -R 777 dist
+
       - name: Replace default green with cyan theme
         run: |
           sed -i 's/#3fb950/#00F5FF/g' dist/snake.svg
