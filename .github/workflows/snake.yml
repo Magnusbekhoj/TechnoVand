@@ -22,18 +22,21 @@ jobs:
           github_user_name: Magnusbekhoj
           outputs: dist/snake.svg?palette=github-dark
 
-      - name: List files in dist directory
-        run: ls -la dist
+      - name: Create temp directory
+        run: mkdir temp
 
-      - name: Ensure dist directory exists
-        run: mkdir -p dist
+      - name: Copy snake.svg to temp directory
+        run: cp dist/snake.svg temp/snake.svg
 
       - name: Replace default green with cyan theme
         run: |
-          sed -i.bak 's/#3fb950/#00F5FF/g' dist/snake.svg
-          sed -i.bak 's/#26a641/#00c3ff/g' dist/snake.svg
-          sed -i.bak 's/#39d353/#00e0ff/g' dist/snake.svg
-          sed -i.bak 's/#9be9a8/#7df9ff/g' dist/snake.svg
+          sed -i 's/#3fb950/#00F5FF/g' temp/snake.svg
+          sed -i 's/#26a641/#00c3ff/g' temp/snake.svg
+          sed -i 's/#39d353/#00e0ff/g' temp/snake.svg
+          sed -i 's/#9be9a8/#7df9ff/g' temp/snake.svg
+
+      - name: Move modified snake.svg back to dist
+        run: mv temp/snake.svg dist/snake.svg
 
       - name: Push snake to output branch
         uses: peaceiris/actions-gh-pages@v3
